@@ -168,7 +168,26 @@ a{color:#14213D}a:hover{color:#C2410C}
 <p style="margin: 0; font-family: ui-monospace, Menlo, monospace; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: #C2410C; font-weight: 600">Limited places each term</p>
 <h2 style="margin: 0; font-weight: 700; font-size: 2.2rem; line-height: 1.15">Book a free 20-minute consultation</h2>
 <p style="margin: 0; color: #55607A">Tell me about your child's course, level and goals. I'll give you an honest view of where they are and how I can help. No obligation.</p>
-<a href="mailto:badmusl@outlook.com" style="background: #C2410C; color: #FFFFFF; text-decoration: none; font-weight: 600; padding: 14px 28px; border-radius: 10px; margin-top: 8px">Email badmusl@outlook.com</a>
+<form id="consult-form" style="width: 100%; display: grid; gap: 14px; text-align: left; margin-top: 8px">
+<label class="cf-l">Parent or student name<input class="cf-i" name="entry.427972117" required autocomplete="name"></label>
+<label class="cf-l">Email address<input class="cf-i" type="email" name="entry.818413595" required autocomplete="email"></label>
+<label class="cf-l">Phone number <span style="font-weight:400;color:#55607A">(optional)</span><input class="cf-i" type="tel" name="entry.376469314" autocomplete="tel"></label>
+<label class="cf-l">Course and level<input class="cf-i" name="entry.1480064580" required placeholder="e.g. IB AA HL, IB AI SL, A-level, GCSE"></label>
+<label class="cf-l">Anything you'd like me to know? <span style="font-weight:400;color:#55607A">(optional)</span><textarea class="cf-i" name="entry.891874917" rows="4" placeholder="Goals, upcoming exams, IA deadlines"></textarea></label>
+<button type="submit" style="background: #C2410C; color: #FFFFFF; border: 0; font: inherit; font-weight: 600; padding: 14px 28px; border-radius: 10px; cursor: pointer; min-height: 48px">Request my free consultation</button>
+<p id="cf-msg" role="status" style="margin: 0; text-align: center; color: #55607A; font-size: 15px">Or email <a href="mailto:badmusl@outlook.com">badmusl@outlook.com</a></p>
+</form>
+<style>.cf-l{display:grid;gap:6px;font-weight:600;font-size:15px}.cf-i{font:inherit;font-weight:400;padding:12px 14px;border:1px solid #A9B4CC;border-radius:10px;background:#F4F6FA;color:#14213D}.cf-i:focus{outline:2px solid #C2410C;outline-offset:1px}</style>
+<script>
+document.getElementById('consult-form').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var f = e.target, msg = document.getElementById('cf-msg'), btn = f.querySelector('button');
+  btn.disabled = true; btn.textContent = 'Sending...';
+  fetch('https://docs.google.com/forms/d/e/1FAIpQLSex4e1RTidBTtnd4PBGr-YmHd30lQdbbIRjziVHWbiDn-zJ-A/formResponse', { method: 'POST', mode: 'no-cors', body: new FormData(f) })
+    .then(function () { f.reset(); btn.textContent = 'Request sent'; msg.innerHTML = '<strong style="color:#14213D">Thank you!</strong> I\'ll be in touch within 48 hours to arrange your consultation.'; })
+    .catch(function () { btn.disabled = false; btn.textContent = 'Request my free consultation'; msg.innerHTML = 'Something went wrong. Please email <a href="mailto:badmusl@outlook.com">badmusl@outlook.com</a> instead.'; });
+});
+</script>
 </div>
 </div>
 </section>
